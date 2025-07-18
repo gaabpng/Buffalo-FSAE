@@ -1,51 +1,27 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Dashboard RPM</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Velocímetro RPM</title>
 </head>
+
 <body>
-    <h2>RPM em tempo real</h2>
-    <canvas id="grafico"></canvas>
+    <h2>RPM Atual</h2>
+    <div id="rpmDisplay" style="font-size: 72px; font-weight: bold; color: green;">--</div>
 
     <script>
-        const ctx = document.getElementById('grafico').getContext('2d');
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'RPM',
-                    borderColor: 'green',
-                    backgroundColor: 'rgba(0, 128, 0, 0.1)',
-                    data: [],
-                }]
-            },
-            options: {
-                animation: false,
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
+        async function atualizarRPM() {
+            const resp = await fetch('/api/dados/ultimo/', { cache: 'no-store' });
+            const dado = await resp.json();
+
+            if (dado && dado.RPM !== undefined) {
+                document.getElementById('rpmDisplay').textContent = Math.round(dado.RPM);
             }
-        });
-
-        async function atualizarGrafico() {
-            const resp = await fetch('/api/dados/lista/');
-            const dados = await resp.json();
-
-            console.log("Atualizando gráfico com", dados.length, "dados");
-
-            const reversed = dados.reverse();  // Inverte para mostrar do mais antigo pro novo
-            chart.data.labels = reversed.map(d => new Date(d.timestamp).toLocaleTimeString());
-            chart.data.datasets[0].data = reversed.map(d => d.RPM);
-            chart.update();
         }
+        setInterval(atualizarRPM, 50);
+        atualizarRPM();
 
-        setInterval(atualizarGrafico, 100); // Tente 100ms para estabilidade
-        atualizarGrafico();
     </script>
 </body>
+
 </html>
