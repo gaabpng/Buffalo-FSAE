@@ -2,6 +2,21 @@
 #include <LoRa.h>
 #include <SPI.h>
 
+/* Estrutura para dados de temperatura */
+struct DadosTemperatura {
+    float tempIR;
+    float tempOleo;
+    float tempAmbiente;
+    float tempObjeto;
+};
+
+// Variáveis globais para armazenar os dados recebidos
+float temperaturaIR = 0.0;
+float temperaturaOleo = 0.0;
+float temperaturaAmbiente = 0.0;
+float temperaturaObjeto = 0.0;
+unsigned long ultimaLeitura = 0;
+
 /* Definições para comunicação com rádio LoRa */
 #define SCK_LORA           5
 #define MISO_LORA         19
