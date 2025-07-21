@@ -41,7 +41,7 @@ float lerTempArrefecimentoSegura() {
 
   // Verificando se a leitura foi válida
   if (temp_cooling == DEVICE_DISCONNECTED_C || isnan(temp_cooling)) {
-    Serial.println("⚠️ Erro: DS18B20 desconectado ou leitura inválida!");
+    Serial.println("⚠️ Erro: IR desconectado ou leitura inválida!");
     return -1000;  // valor inválido para detectar erro
   }
 
