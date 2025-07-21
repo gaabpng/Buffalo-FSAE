@@ -27,3 +27,6 @@ As informações recebidas pelo PySerial são armazenadas em um Json. O dashboar
 
 ## OBS
 Ao invés de fazer a comunicação por HTTP (Custosa para o computador) é possivel utilizar um WEB Socket (Consideravelmente mais leve), mas demanda um certo tempo para entender a sua utilização e mais ainda para aplicar, portanto, como o prazo é curto, mantemos o HTTP
+
+# Leal
+Faz o L da silva
